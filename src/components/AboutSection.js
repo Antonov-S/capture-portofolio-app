@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import home1 from "../img/home1.png";
+import Wave from "./Wave";
 import { About, Description, Image, Hide } from "../styles";
 import { titleAnim, fade, photoAnim } from "../animation";
 
@@ -28,6 +29,7 @@ export default function AboutSection() {
       <Image>
         <motion.img variants={photoAnim} src={home1} alt="Guy with a camera" />
       </Image>
+      <Wave />
     </About>
   );
 }
