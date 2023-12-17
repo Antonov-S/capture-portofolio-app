@@ -1,15 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 import athlete from "../img/athlete-small.png";
 import theracer from "../img/theracer-small.png";
 import goodtimes from "../img/goodtimes-small.png";
 
-import { motion } from "framer-motion";
 import { pageAnimation, fade, photoAnim, lineAnim, slider, sliderContainer } from "../animation";
+import { useScroll } from "../components/useScroll";
 
 export default function OurWork() {
+  const [element, controls] = useScroll();
+  const [element2, controls2] = useScroll();
+
   return (
     <Work exit="exit" variants={pageAnimation} initial="hidden" animate="show" style={{ background: "#fff" }}>
       <motion.div variants={sliderContainer}>
@@ -18,6 +22,7 @@ export default function OurWork() {
         <Frame3 variants={slider}></Frame3>
         <Frame4 variants={slider}></Frame4>
       </motion.div>
+
       <Movie>
         <motion.h2 variants={fade}>The Athlete</motion.h2>
         <motion.div variants={lineAnim} className="line"></motion.div>
@@ -27,22 +32,20 @@ export default function OurWork() {
           </Hide>
         </Link>
       </Movie>
-      <Movie>
-        <motion.h2 variants={fade}>The Racer</motion.h2>
-        <motion.div className="line"></motion.div>
+
+      <Movie ref={element} variants={fade} animate={controls} initial="hidden">
+        <h2>The Racer</h2>
+        <motion.div variants={lineAnim} className="line"></motion.div>
         <Link to="/work/the-racer">
-          <Hide>
-            <motion.img variants={photoAnim} src={theracer} alt="Racer" />
-          </Hide>
+          <img src={theracer} alt="theracer" />
         </Link>
       </Movie>
-      <Movie>
-        <motion.h2 variants={fade}>Good Times</motion.h2>
-        <motion.div className="line"></motion.div>
+
+      <Movie ref={element2} variants={fade} animate={controls2} initial="hidden">
+        <h2>Good Times</h2>
+        <motion.div variants={lineAnim} className="line"></motion.div>
         <Link to="/work/good-times">
-          <Hide>
-            <motion.img variants={photoAnim} src={goodtimes} alt="Good times" />
-          </Hide>
+          <img src={goodtimes} alt="goodtimes" />
         </Link>
       </Movie>
     </Work>
@@ -60,7 +63,7 @@ const Work = styled(motion.div)`
   }
 `;
 
-const Movie = styled.div`
+const Movie = styled(motion.div)`
   padding-bottom: 10rem;
 
   .line {
